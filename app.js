@@ -1,92 +1,115 @@
-'use strict'
-
-// ------------------------------
-
-function getRandomArbitrary(min, max) {
-    var x= Math.random() * (max - min) + min;
-   var y = Math.floor(x);
-   return y ;
-}
+'use strict;'
 
 
+// 1- constructor
+//2- event listner
+// save data to local storage
 
+//3- global render contains :
+//3.1 fetch data from local storage
+// send this data to rendring
 
-
-
-// -----------------------------------
-var Submitions = function(wish,date,years){
-    this.wish=wish;
+var CartOne=function(name,date,rand){
+    this.name=name;
     this.date=date;
-    this.years=years;
-    Submitions.all.push(this);
-
+    this.rand=rand;
+    CartOne.all.push(this);
 }
-Submitions.all = [];
-console.log(Submitions.all);
 
-
-// ----------------------------------------
-var form = document.getElementById('myform');
-
-form.addEventListener('submit',handelSubmit);
-
-function handelSubmit(event){
-    event.preventDefault()
-
-    var wish1 = document.getElementById("first").Value;
+CartOne.all=[];
+var Cart = function(items) {
+   
     
-    var date1 = document.getElementById("second").Value;
-var years1 = getRandomArbitrary(1,99);
+    this.items = items;
+    
+  };
 
-new Submitions(wish1,date1,years1);
-table.innerHTML='';
-saveLS();
-render();
+  //////
 
+document.getElementById('formOne').addEventListener('submit',renOne);
+    function renOne(event){
+event.preventDefault();
+var name1=event.target.i1.value;
+var date1=event.target.i2.value;
+    // console.log(date1);
+    var randomNum=getRndInteger();
+var store1=[name1,date1,randomNum];
+// console.log(store1);
+new CartOne(name1,date1,randomNum);
+saveToLocal();
+// fromLocal();
+doTable();
+document.getElementById('formOne').reset();
 }
-// -------------------------------
-var table = document.getElementById('mytable');
-function render(){
 
-var tabelArr = ['Wish Title','Expected Date','Your wish will come true after xD' ];
-var tr1 = document.createElement('tr');
-table.appendChild(tr1);
-for(var i=0 ; i<tabelArr.length ; i++){
-    var td1 = document.createElement('th');
-    td1.textContent=tabelArr[i];
+
+
+
+var table=document.getElementById('divTwo');
+var tableBody=table.childNodes[5].childNodes[3];
+
+function doTable(){
+    fromLocal();
+    // console.log(ship);
+    // getElemntFromstor();
+    tableBody.textContent=null;
+    // console.log(ship);
+    for(var i=0;i<ship.items.length;i++){
+        var tr1=document.createElement('tr');
+        tableBody.appendChild(tr1);
+        tr1.setAttribute('id',`${i} row`);
+        
+        document.getElementById(`${i} row`).addEventListener('click',remov);
+// console.log("any");
+    var td1=document.createElement('td');
     tr1.appendChild(td1);
-}
-for(var j=0 ; j<Submitions.all.length ; j++){
-    var tr = document.createElement('tr');
-    
-    var td = document.createElement('td');
-    td.textContent=Submitions.all[j].wish;
-    tr.appendChild(td);
-
-
-    var td2 = document.createElement('td');
-    td2.textContent=Submitions.all[j].date;
-    tr.appendChild(td2);
-
-
-    var td3 = document.createElement('td');
-    td3.textContent=Submitions.all[j].years;
-    tr.appendChild(td3);
+    td1.textContent=ship.items[i].name;
+    var td1=document.createElement('td');
+    tr1.appendChild(td1);
+    td1.textContent=ship.items[i].date;
+    var td1=document.createElement('td');
+    tr1.appendChild(td1);
+    td1.textContent=`${ship.items[i].rand} Years`;
+    var td1=document.createElement('button');
+    td1.setAttribute('id',i);
+    tr1.appendChild(td1);
+    td1.textContent='X';
+  
 
 }
+
 }
 
-function saveLS(){
-    var saveSub = JSON.stringify(Submitions.all);
-    localStorage.setItem('subkey' ,saveSub);
-}
 
-function getLS(){
-var getJson = localStorage.getItem('subkey');
 
-if(getJson){
-    Submitions.all = JSON.parse(getJson);
+function getRndInteger() {
+    return Math.floor(Math.random() * (100 - 1) ) + 1;
+  }
+  function saveToLocal(){
+  
+      localStorage.setItem('myS',JSON.stringify(CartOne.all))
+  }
+  function fromLocal(){
+      var a=JSON.parse(localStorage.getItem('myS'))||[];
+      ship=new Cart(a);
+    //   console.log(a);
+  }
+//   renOne();
+
+// ren();
+doTable();
+function remov(event){
+    // console.log(event.target.textContent=='X');
+    // event.remove();
+    // console.log(document.getElementById('mybutton').textContent);
+  var newTable=tableBody;
+  
+    // console.log(newTable);
+    // console.log(event);
+    // console.log(event.target.parentNode);
+    console.log(parseInt(event.target.id));
+    CartOne.all.splice(parseInt(event.target.id),1);
+    saveToLocal();
+    if(event.target.textContent=='X'){
+    event.target.parentNode.remove();}
 }
-}
-getLS()
-render();

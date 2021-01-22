@@ -2,41 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My WishList</title>
     <link rel="stylesheet" href="style.css">
+    <title>My-funny-wishlist</title>
 </head>
 
 <body>
     <header>
-        <h1>My WishList</h1>
+        <h1>My wish list</h1>
     </header>
     <main>
-        <form id="myform">
-            <fieldset>
-                <legend></legend>
-                <label for="first">Wish Title</label><br>
-                <input type="text" id="first"><br><br>
-                <label for="second">Expected Date</label><br>
-                <input type="date" id="second"><br><br>
-                <!-- <input type="submit"  value="ADD" /> -->
-                <input type="submit">
+        <div id="divOne">
+            <form action="" id="formOne">
+                <fieldset>
+                    <label for="i1">Wish Title</label><br>
+                    <input type="text" id="i1"><br>
+                    <label for="i2">Expected date</label><br>
+                    <input type="date" id="i2"><br>
+                    <input type="submit" id="sub1" value="ADD">
+                </fieldset>
+            </form>
+        </div>
+        <div id="divTwo">
+            <p>My wish list</p> <br>
+            <table>
+                <thead>
+                    <th>Wish Title</th>
+                    <th>Expected Date</th>
+                    <th>Your wish will come true after</th>
+                    <th>Remove</th>
+                </thead>
+                <tbody>
 
-            </fieldset>
-        </form>
-<div id="rightside">
-    <h1>My WishList</h1>
-        <table id="mytable">
-
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
     </main>
-
-
-
-
-    <script src="app.js"></script>
+    <footer></footer>
 </body>
+<script src="app.js"></script>
 
 </html>
